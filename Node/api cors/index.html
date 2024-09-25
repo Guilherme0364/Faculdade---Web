@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <hr>
+    <h4>Lista de jogos</h4>
+    <ul id="games"></ul>
+
+    <hr>
+    <h4>Novo game</h4>
+    <input type="text" name="title" id="title" placeholder="Digite o título:">
+    <input type="text" name="year" id="year" placeholder="Digite o ano:">
+    <button type="submit">Salvar</button>
+
+    <script>
+        axios.get("http://localhost:8181/games").then(res => {
+            var games = res.data
+            var list = document.getElementById("games")
+
+            games.forEach(element => {
+                var item = document.createElement("li")
+                item.innerHTML = game.id + "-" + game.title
+                list.appendChild(item)
+            });
+        }).catch(error => {
+            console.log(error)
+        })
+
+        function createGame(){
+            var titleInput = getElementById("title")
+            var yearInput = getElementById("year")
+
+            var game = {
+                title: titleInput.value,
+                year: yearInput.value
+            }
+        }
+
+        axios.get("http://localhost:8181/games", game).then(res => {
+            if(res.status == 200){
+                alert("Jogo cadastrado com sucesso")
+                location.reload()
+            } 
+        }) .catch(error => {
+            console.log(error)
+        })
+    </script>
+    
+</body>
+</html>
